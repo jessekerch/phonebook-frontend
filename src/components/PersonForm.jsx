@@ -32,21 +32,17 @@ const PersonForm = ({
   const updatePerson = () => {
     if (window.confirm(`${newName} is already in the phonebook. Do you want to update the number to ${newNumber}?`)) {
       const personToUpdate = persons.find(p => p.name === newName)
-      console.log('Person to update: ', personToUpdate);
       const id = personToUpdate.id
-      console.log('Id to update: ', id);
 
       const updatedPersonObject = {
         ...personToUpdate,
         number: newNumber
       }
-      console.log('Updated person object: ', updatedPersonObject);
 
       phoneService
       .update(id, updatedPersonObject)
       .then(() => {
         setPersons(persons.map(p => p.name !== newName ? p : updatedPersonObject))
-        console.log('Updated. Persons collect is: ', persons);
         setNewName('')
         setNewNumber('')
         setNewFilter('')
