@@ -64,15 +64,15 @@ const PersonForm = ({
       setNewNumber('')
       setNewFilter('')
     })
+    .catch(error => {
+      setErrorMessage(error.response.data.error)
+      setTimeout(() => setErrorMessage(null), 2000)
+    })
   }
 
   const checkPerson = (event) => {
     event.preventDefault()
-    if (newName.length === 0) {
-      // need a name value to add a person
-      setErrorMessage(`Name cannot be blank`)
-      setTimeout(() => setErrorMessage(null), 2000)
-    } else if (existingPersonSameNumber()) {
+    if (existingPersonSameNumber()) {
       // trying to add a person and number that already exists
       setErrorMessage(`${newName} is already in the phonebook`)
       setTimeout(() => setErrorMessage(null), 2000)
